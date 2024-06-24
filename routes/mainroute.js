@@ -17,7 +17,7 @@ mainroute.get('/portfolio',(req,res)=>{
 })
 mainroute.post('/project',upload.array('images'),async (req,res)=>{
     // res.render('portfolio')
-    let {title,description,category,technologyUsed,specifications}=req.body;
+    let {title,description,category,technologiesUsed,specifications}=req.body;
     let images=[];
     req.files.map((item)=>{
         images.push("/uploads/"+item.filename)
@@ -27,7 +27,7 @@ mainroute.post('/project',upload.array('images'),async (req,res)=>{
             title,
             description,
             category,
-            technologyUsed,
+            technologiesUsed,
             specifications,
             images
         });
@@ -42,6 +42,16 @@ mainroute.post('/project',upload.array('images'),async (req,res)=>{
     }
     // console.log('body is',data);
 
+});
+mainroute.get('/projects',async(req,res)=>{
+  try {
+    const projects=await Project.find();
+    res.send({status:200,projects})
+  } catch (error) {
+    console.log(error);
+    res.sendStatus(400);
+  }
+    
 })
 mainroute.get('/dashboard',(req,res)=>{
     res.render('dashboard')
