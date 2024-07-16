@@ -1,15 +1,18 @@
-const express=require('express');
-require('dotenv').config();
-const path=require("path");
-const hbs=require('hbs');
-require('./database/mongooconnection');
-const mainroute=require('./routes/mainroute');
-const cors=require('cors');
+import express from 'express';
+import path from "path";
+import hbs from 'hbs';
+import cors from 'cors';
+import mainroute from './routes/mainroute.js';
+import { fileURLToPath } from 'url';
+import Connection from './database/mongooconnection.js';
 const PORT=process.env.PORT || 5000;
 
-const staticPath=path.join(__dirname,'public');
-const partialPath=path.join(__dirname,'./views/partials');
+const filename = fileURLToPath(import.meta.url); 
+const dirname = path.dirname(filename);
+const staticPath=path.join(dirname,'public');
+const partialPath=path.join(dirname,'./views/partials');
 const app=express();
+Connection();
 app.use(express.json());
 app.use(cors());
 app.use(express.urlencoded({extended:true}));
@@ -19,5 +22,5 @@ app.use(express.static(staticPath))
 app.set('view engine','hbs');
 app.use(mainroute);
 app.listen(PORT,()=>{
-    console.log("server is running on port 3000")
+    console.log("server is running on port"+PORT)
 })

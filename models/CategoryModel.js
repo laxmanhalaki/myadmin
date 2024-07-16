@@ -1,4 +1,4 @@
-const mongoose=require('mongoose');
+import mongoose from 'mongoose';
 const CategorySchema=new mongoose.Schema({
     id:{
         type:Number
@@ -11,4 +11,4 @@ const CategorySchema=new mongoose.Schema({
     }
 })
 const Category=new mongoose.model('Category',CategorySchema);
-module.exports=Category;
+export default Category;
