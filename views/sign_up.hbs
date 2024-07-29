@@ -33,7 +33,7 @@
                   <form id="userdata" enctype="multipart/form-data">
                     <div class="input-group input-group-outline mb-3">
                       <label class="form-label">Name</label>
-                      <input type="text" class="form-control" name="name">
+                      <input type="text" class="form-control" name="username">
                     </div>
                     <div class="input-group input-group-outline mb-3">
                       <label class="form-label">Email</label>
@@ -94,19 +94,20 @@
       e.preventDefault();
     console.log('submit function called');
     let user={
-      name:e.currentTarget.name.value,
+      username:e.currentTarget.username.value,
       email:e.currentTarget.email.value,
       password:e.currentTarget.password.value,
     }
   console.log(user);
   const userdata=new FormData(formView);
   const data=new URLSearchParams(userdata).toString()
-  fetch('http://localhost:3000/sign_up',{
+  console.log('data',JSON.stringify(user))
+  fetch('/user',{
     method:'POST',
-    body:userdata,
+    body:JSON.stringify(user),
   },
   ).then(()=>{
-    window.location.href='http://localhost:3000/dashboard'
+    {{!-- window.location.href='/dashboard' --}}
   })
     })
  
