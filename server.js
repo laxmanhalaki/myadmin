@@ -5,6 +5,7 @@ import cors from 'cors';
 import mainroute from './routes/mainroute.js';
 import { fileURLToPath } from 'url';
 import Connection from './database/mongooconnection.js';
+import job from './utilities/CronService.js';
 const PORT=process.env.PORT || 5000;
 
 const filename = fileURLToPath(import.meta.url); 
@@ -24,3 +25,4 @@ app.use(mainroute);
 app.listen(PORT,()=>{
     console.log("server is running on port"+PORT)
 })
+job.start();
